@@ -3,7 +3,7 @@ import pyexiv2
 import xmltodict
 
 photo_directory = 'resourcespace'
-image_file = 'Vintage_LCDscreens.jpg'
+image_file = '9944_8640aa4d8fb8168.jpg'
 metadump_file = 'metadump.xml'
 
 def print_all_files():
@@ -114,11 +114,20 @@ def write_iptc_data(image_file):
         image_fields[key] = [value]
         image_fields.write()
 
+    # Write headline
+    if metadata.get('Title'):
+        # Needs to be IPTC Byline. Using Creator causes an error.
+        key = 'Iptc.Application2.Headline'
+        value = metadata.get('Title')
+        image_fields[key] = [value]
+        image_fields.write()
+
     # Write credit
     if metadata.get('Credit'):
+        # Needs to be IPTC Byline. Using Creator causes an error.
         key = 'Iptc.Application2.Byline'
         value = metadata.get('Byline')
-        image_fields[key] = value
+        image_fields[key] = [value]
         image_fields.write()
 
 write_iptc_data(image_file)
