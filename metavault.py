@@ -18,4 +18,15 @@ def get_iptc_keywords(image_file):
         if key == 'Iptc.Application2.Keywords':
             print(tag.value)
 
+def write_iptc_keywords(image_file):
+    metadata = pyexiv2.ImageMetadata(image_file)
+    metadata.read()
+
+    for key in metadata.iptc_keys:
+         tag = metadata[key]
+         if key == 'Iptc.Application2.Keywords':
+             tag.value = ['puddy']
+             metadata.write()
+
+write_iptc_keywords(image_file)
 get_iptc_keywords(image_file)
