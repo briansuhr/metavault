@@ -3,10 +3,10 @@ import pyexiv2
 import xmltodict
 import glob
 import os
+import math
 
 image_directory = 'resourcespace'
 image_file = '9944_8640aa4d8fb8168.jpg'
-metadump_file = 'metadump.xml'
 
 def get_iptc_keywords(image_file):
     metadata = pyexiv2.ImageMetadata(image_file)
@@ -85,14 +85,15 @@ def read_metadump(metadump_file):
     return(metadata)
 
 def get_all_image_files():
-    # Use glob.iglob instead of glob.glob to avoid storing all files simultaneously.
     number_of_images = 0
     image_files = []
 
     for image in glob.iglob('resourcespace/**/*.jpg', recursive=True):
+        # Use glob.iglob instead of glob.glob to avoid storing all files simultaneously.
         if 'col_' not in image and 'lpr_' not in image and 'pre_' not in image and 'scr_' not in image and 'thm_' not in image:
             number_of_images += 1
 
+            # Split up directory and image basename
             image_file_location = []
             image_directory = os.path.dirname(image)
             image_basename = os.path.basename(image)
@@ -102,47 +103,72 @@ def get_all_image_files():
 
             image_files.append(image_file_location)
             image_file_location = []
-            
+
             print(str(number_of_images) + " images found.", end="\r")
 
     return(image_files)
 
 def write_iptc_data():
+
+    count = 0
+
     all_image_files = get_all_image_files()
 
     for image_file in all_image_files:
 
-        image_fields = pyexiv2.ImageMetadata(image_file)
+        # Look for metadump file
+        metadump_file = (str(image_file[0]) + '/metadump.xml')
+        image_filepath = str(image_file[0]) + "/" + str(image_file[1])
+
+        try:
+            os.path.isfile(metadump_file)
+        except:
+            print("No metadump file found for" + str(image_file[1]) + ".")
+            count += 1
+            continue
+
+        image_fields = pyexiv2.ImageMetadata(image_filepath)
         image_fields.read()
 
         metadata = read_metadump(metadump_file)
 
         # Write keywords
-        if metadata.get('Keywords'):
-            key = 'Iptc.Application2.Keywords'
-            value = metadata.get('Keywords')
-            image_fields[key] = [value]
+        try:
+            if metadata.get('Keywords'):
+                key = 'Iptc.Application2.Keywords'
+                value = metadata.get('Keywords')
+                image_fields[key] = [value]
+        except:
+            pass
 
         # Write headline
-        if metadata.get('Title'):
-            # Needs to be IPTC Byline. Using Creator causes an error.
-            key = 'Iptc.Application2.Headline'
-            value = metadata.get('Title')
-            image_fields[key] = [value]
+        try:
+            if metadata.get('Title'):
+                # Needs to be IPTC Byline. Using Creator causes an error.
+                key = 'Iptc.Application2.Headline'
+                value = metadata.get('Title')
+                image_fields[key] = [value]
+        except:
+            pass
 
         # Write credit
-        if metadata.get('Credit'):
-            # Needs to be IPTC Byline. Using Creator causes an error.
-            key = 'Iptc.Application2.Byline'
-            value = metadata.get('Byline')
-            image_fields[key] = [value]
+        try:
+            if metadata.get('Credit'):
+                # Needs to be IPTC Byline. Using Creator causes an error.
+                key = 'Iptc.Application2.Byline'
+                value = metadata.get('Byline')
+                image_fields[key] = [value]
+        except:
+            pass
 
-    image_fields.write()
+        try:
+            image_fields.write()
+            count += 1
+            print("(" + str(int(count/len(all_image_files) * 100)) + "%) Added metadata to image " + str(count) + " of " + str(len(all_image_files)))
 
-def pud():
-    all_image_files = get_all_image_files()
-    for image in all_image_files:
-        print(image)
-    print(len(all_image_files))
+        except:
+            print("Failed to add metadata to" + str(image_file[1]))
+            count += 1
+            continue
 
-get_all_image_files()
+write_iptc_data()
