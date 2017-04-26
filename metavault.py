@@ -2,7 +2,6 @@ import os
 import pyexiv2
 import xmltodict
 import glob
-import os
 
 image_directory = 'resourcespace'
 image_file = '9944_8640aa4d8fb8168.jpg'
