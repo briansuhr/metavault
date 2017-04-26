@@ -16,5 +16,6 @@ tags
 ### Vagrant ###
 .vagrant/
 *.log
+*.txt
 
 resourcespace/
