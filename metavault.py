@@ -134,9 +134,14 @@ def write_iptc_data():
         try:
             image_fields.read()
         except:
-            print("Failed to open image " + str(image_file[1]))
+            print("Failed to open image " + str(image_filepath))
+            continue
 
-        metadata = read_metadump(metadump_file)
+        try:
+            metadata = read_metadump(metadump_file)
+        except:
+            print("Failed to open metadump file for image " + str(image_filepath))
+            continue
 
         # Write keywords
         try:
