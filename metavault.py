@@ -35,10 +35,19 @@ def read_metadump(metadump_file):
     xml_file = open(metadump_file, "r").read()
     parsed_xml_file = xmltodict.parse(xml_file)
 
-    # Get ResourceSpace keywords
+    # Get ResourceSpace image title
+    for title_metadata, value in parsed_xml_file['record']['dc:title'].items():
+        if title_metadata == '#text':
+            print("\n")
+            print("Title")
+            print(value)
+
+    # Get ResourceSpace image keywords
     for metadata in parsed_xml_file['record']['resourcespace:field']:
         for key, value in metadata.items():
             if value == 'Keywords':
+                print("\n")
+                print("Keywords")
                 print(metadata['#text'])
 
 read_metadump(metadump_file)
