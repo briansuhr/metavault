@@ -76,19 +76,21 @@ def read_metadump(metadump_file):
                 except:
                     pass
 
-    print(metadata)
     return(metadata)
 
 def write_iptc_keywords(image_file):
-    metadata = pyexiv2.ImageMetadata(image_file)
-    metadata.read()
+    image_fields = pyexiv2.ImageMetadata(image_file)
+    image_fields.read()
+
+    metadata = read_metadump(metadump_file)
+    print(metadata)
 
     #Get metadump file
 
-    for key in metadata.iptc_keys:
-         tag = metadata[key]
+    for key in image_fields.iptc_keys:
+         tag = image_fields[key]
          if key == 'Iptc.Application2.Keywords':
              tag.value = ['puddy']
-             metadata.write()
+             image_fields.write()
 
-read_metadump(metadump_file)
+write_iptc_keywords(image_file)
