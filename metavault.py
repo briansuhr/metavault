@@ -1,8 +1,10 @@
 import os
 import pyexiv2
+import xmltodict
 
 photo_directory = 'resourcespace'
 image_file = '9944_8640aa4d8fb8168.jpg'
+metadump_file = 'metadump.xml'
 
 def print_all_files():
     for sub_directory, directorys, files in os.walk(photo_directory):
@@ -28,5 +30,10 @@ def write_iptc_keywords(image_file):
              tag.value = ['puddy']
              metadata.write()
 
-write_iptc_keywords(image_file)
-get_iptc_keywords(image_file)
+def read_metadump(metadump_file):
+
+    xml_file = open(metadump_file, "r").read()
+    parsed_xml_file = xmltodict.parse(xml_file)
+    print(parsed_xml_file)
+
+read_metadump(metadump_file)
