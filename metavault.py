@@ -1,6 +1,7 @@
 import os
 import pyexiv2
 import xmltodict
+from collections import namedtuple
 
 photo_directory = 'resourcespace'
 image_file = '9944_8640aa4d8fb8168.jpg'
@@ -35,15 +36,18 @@ def read_metadump(metadump_file):
     xml_file = open(metadump_file, "r").read()
     parsed_xml_file = xmltodict.parse(xml_file)
 
+    metadata = []
+
     # Get ResourceSpace image title
     for title_metadata, value in parsed_xml_file['record']['dc:title'].items():
         if title_metadata == '#text':
             print("TITLE")
             try:
+                '#text' in title_metadata
+                metadata.append({'Title': value})
                 print(value)
             except:
                 print("Title field empty")
-                continue
 
     # Get ResourceSpace image date
     for date_metadata, value in parsed_xml_file['record']['dc:date'].items():
@@ -51,10 +55,11 @@ def read_metadump(metadump_file):
             print("\n")
             print("DATE")
             try:
+                '#text' in date_metadata
+                metadata.append({'Date': value})
                 print(value)
             except:
                 print("Title field empty")
-                continue
 
     # Get ResourceSpace image keywords
     for image_metadata in parsed_xml_file['record']['resourcespace:field']:
@@ -63,10 +68,11 @@ def read_metadump(metadump_file):
                 print("\n")
                 print("KEYWORDS")
                 try:
+                    'Keywords' in image_metadata
+                    metadata.append({'Keywords': image_metadata['#text']})
                     print(image_metadata['#text'])
                 except:
                     print("Keywords field empty")
-                    continue
 
     # Get ResourceSpace image notes
     for notes_metadata in parsed_xml_file['record']['resourcespace:field']:
@@ -75,10 +81,11 @@ def read_metadump(metadump_file):
                 print("\n")
                 print("NOTES")
                 try:
+                    'Notes' in image_metadata
+                    metadata.append({'Notes': notes_metadata['#text']})
                     print(notes_metadata['#text'])
                 except:
                     print("Notes field empty")
-                    continue
 
 
     # Get ResourceSpace image credit
@@ -88,9 +95,13 @@ def read_metadump(metadump_file):
                 print("\n")
                 print("CREDIT")
                 try:
+                    'Credit' in credit_metadata
+                    metadata.append({'Credit': credit_metadata['#text']})
                     print(credit_metadata['#text'])
                 except:
                     print("Credit field empty")
-                    continue
+
+    print(metadata)
+    return(metadata)
 
 read_metadump(metadump_file)
