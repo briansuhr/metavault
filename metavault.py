@@ -45,6 +45,16 @@ def read_metadump(metadump_file):
                 print("Title field empty")
                 continue
 
+    for title_metadata, value in parsed_xml_file['record']['dc:date'].items():
+        if title_metadata == '#text':
+            print("\n")
+            print("DATE")
+            try:
+                print(value)
+            except:
+                print("Title field empty")
+                continue
+
     # Get ResourceSpace image keywords
     for metadata in parsed_xml_file['record']['resourcespace:field']:
         for key, value in metadata.items():
