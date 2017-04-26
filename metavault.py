@@ -130,7 +130,11 @@ def write_iptc_data():
             continue
 
         image_fields = pyexiv2.ImageMetadata(image_filepath)
-        image_fields.read()
+
+        try:
+            image_fields.read()
+        except:
+            print("Failed to open image " + str(image_file[1]))
 
         metadata = read_metadump(metadump_file)
 
