@@ -106,11 +106,17 @@ def get_all_image_files():
 
     return(image_files)
 
+def write_list_of_image_files(image_file_list):
+    image_files = open('image_files.txt', 'w')
+    for image_file in image_file_list:
+        image_files.write("%s\n" % image_file)
+
 def write_iptc_data():
 
     count = 0
 
     all_image_files = get_all_image_files()
+    write_list_of_image_files(all_image_files)
 
     print("Writing metadata to images...")
 
