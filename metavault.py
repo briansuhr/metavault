@@ -87,19 +87,6 @@ def read_metadump(metadump_file):
 
     return(metadata)
 
-def write_iptc_credit(image_file):
-    image_fields = pyexiv2.ImageMetadata(image_file)
-    image_fields.read()
-
-    metadata = read_metadump(metadump_file)
-    print(metadata)
-
-    key = 'Iptc.Application2.Byline'
-    value = metadata.get('Credit')
-    image_fields[key] = value
-    image_fields.write()
-
-
 def write_iptc_data(image_file):
     image_fields = pyexiv2.ImageMetadata(image_file)
     image_fields.read()
