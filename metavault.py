@@ -34,6 +34,11 @@ def read_metadump(metadump_file):
 
     xml_file = open(metadump_file, "r").read()
     parsed_xml_file = xmltodict.parse(xml_file)
-    print(parsed_xml_file)
+
+    # Get ResourceSpace keywords
+    for metadata in parsed_xml_file['record']['resourcespace:field']:
+        for key, value in metadata.items():
+            if value == 'Keywords':
+                print(metadata['#text'])
 
 read_metadump(metadump_file)
