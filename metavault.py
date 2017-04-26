@@ -3,7 +3,7 @@ import pyexiv2
 import xmltodict
 
 photo_directory = 'resourcespace'
-image_file = '9944_8640aa4d8fb8168.jpg'
+image_file = 'Vintage_LCDscreens.jpg'
 metadump_file = 'metadump.xml'
 
 def print_all_files():
@@ -18,6 +18,16 @@ def get_iptc_keywords(image_file):
     for key in metadata.iptc_keys:
         tag = metadata[key]
         if key == 'Iptc.Application2.Keywords':
+            print(tag.value)
+
+def get_iptc_credit(image_file):
+    metadata = pyexiv2.ImageMetadata(image_file)
+    metadata.read()
+
+    for key in metadata.iptc_keys:
+        tag = metadata[key]
+        print(str(key)+ str(tag.value))
+        if key == 'Iptc.Application2.Credit':
             print(tag.value)
 
 def read_metadump(metadump_file):
@@ -51,7 +61,7 @@ def read_metadump(metadump_file):
             if value == 'Keywords':
                 try:
                     'Keywords' in keywords_metadata
-                    metadata["Keywords"] = keywords_metadata["#text"].split(",")
+                    metadata["Keywords"] = keywords_metadata["#text"]
                 except:
                     pass
 
@@ -77,20 +87,39 @@ def read_metadump(metadump_file):
 
     return(metadata)
 
-def write_iptc_keywords(image_file):
+def write_iptc_credit(image_file):
     image_fields = pyexiv2.ImageMetadata(image_file)
     image_fields.read()
 
     metadata = read_metadump(metadump_file)
     print(metadata)
 
-    #Get metadump file
+    key = 'Iptc.Application2.Byline'
+    value = metadata.get('Credit')
+    image_fields[key] = value
+    image_fields.write()
 
-    for key in image_fields.iptc_keys:
-         tag = image_fields[key]
-         if key == 'Iptc.Application2.Keywords':
-             print(metadata.get('Keywords'))
-             tag.value = metadata.get('Keywords')
-             image_fields.write()
 
-write_iptc_keywords(image_file)
+def write_iptc_data(image_file):
+    image_fields = pyexiv2.ImageMetadata(image_file)
+    image_fields.read()
+
+    metadata = read_metadump(metadump_file)
+    print(metadata)
+
+    # Write keywords
+    if metadata.get('Keywords'):
+        key = 'Iptc.Application2.Keywords'
+        value = metadata.get('Keywords')
+        image_fields[key] = [value]
+        image_fields.write()
+
+    # Write credit
+    if metadata.get('Credit'):
+        key = 'Iptc.Application2.Byline'
+        value = metadata.get('Byline')
+        image_fields[key] = value
+        image_fields.write()
+
+write_iptc_data(image_file)
+get_iptc_credit(image_file)
