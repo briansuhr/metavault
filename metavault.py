@@ -1,7 +1,6 @@
 import os
 import pyexiv2
 import xmltodict
-from collections import namedtuple
 
 photo_directory = 'resourcespace'
 image_file = '9944_8640aa4d8fb8168.jpg'
@@ -26,14 +25,14 @@ def read_metadump(metadump_file):
     xml_file = open(metadump_file, "r").read()
     parsed_xml_file = xmltodict.parse(xml_file)
 
-    metadata = []
+    metadata = {}
 
     # Get ResourceSpace image title
     for title_metadata, value in parsed_xml_file['record']['dc:title'].items():
         if title_metadata == '#text':
             try:
                 '#text' in title_metadata
-                metadata.append({'Title': value})
+                metadata["Title"] = value
             except:
                 pass
 
@@ -42,17 +41,17 @@ def read_metadump(metadump_file):
         if date_metadata == '#text':
             try:
                 '#text' in date_metadata
-                metadata.append({'Date': value})
+                metadata["Date"] = value
             except:
                 pass
 
     # Get ResourceSpace image keywords
-    for image_metadata in parsed_xml_file['record']['resourcespace:field']:
-        for key, value in image_metadata.items():
+    for keywords_metadata in parsed_xml_file['record']['resourcespace:field']:
+        for key, value in keywords_metadata.items():
             if value == 'Keywords':
                 try:
-                    'Keywords' in image_metadata
-                    metadata.append({'Keywords': image_metadata['#text']})
+                    'Keywords' in keywords_metadata
+                    metadata["Keywords"] = keywords_metadata["#text"].split(",")
                 except:
                     pass
 
@@ -62,7 +61,7 @@ def read_metadump(metadump_file):
             if value == 'Notes':
                 try:
                     'Notes' in image_metadata
-                    metadata.append({'Notes': notes_metadata['#text']})
+                    metadata["Notes"] = notes_metadata["#text"]
                 except:
                     pass
 
@@ -72,7 +71,7 @@ def read_metadump(metadump_file):
             if value == 'Credit':
                 try:
                     'Credit' in credit_metadata
-                    metadata.append({'Credit': credit_metadata['#text']})
+                    metadata["Credit"] = credit_metadata["#text"]
                 except:
                     pass
 
@@ -90,7 +89,8 @@ def write_iptc_keywords(image_file):
     for key in image_fields.iptc_keys:
          tag = image_fields[key]
          if key == 'Iptc.Application2.Keywords':
-             tag.value = ['puddy']
+             print(metadata.get('Keywords'))
+             tag.value = metadata.get('Keywords')
              image_fields.write()
 
 write_iptc_keywords(image_file)
