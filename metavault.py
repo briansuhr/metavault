@@ -114,7 +114,7 @@ def write_iptc_data():
 
     all_image_files = get_all_image_files()
 
-    print("Writing metadata...")
+    print("Writing metadata to images...")
 
     for image_file in all_image_files:
 
@@ -164,13 +164,15 @@ def write_iptc_data():
             pass
 
         try:
+            print("(" + str(int(count/len(all_image_files) * 100)) + "%) Writing metadata to image " + str(count) + " of " + str(len(all_image_files)), end="\r")
             image_fields.write()
             count += 1
-            print("(" + str(int(count/len(all_image_files) * 100)) + "%) Added metadata to image " + str(count) + " of " + str(len(all_image_files)), end="\r")
 
         except:
-            print("Failed to add metadata to" + str(image_file[1]))
+            print("Failed to add metadata to " + str(image_file[1]))
             count += 1
             continue
+
+    print("Done.")
 
 write_iptc_data()
