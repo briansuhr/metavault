@@ -45,8 +45,9 @@ def read_metadump(metadump_file):
                 print("Title field empty")
                 continue
 
-    for title_metadata, value in parsed_xml_file['record']['dc:date'].items():
-        if title_metadata == '#text':
+    # Get ResourceSpace image date
+    for date_metadata, value in parsed_xml_file['record']['dc:date'].items():
+        if date_metadata == '#text':
             print("\n")
             print("DATE")
             try:
@@ -56,38 +57,38 @@ def read_metadump(metadump_file):
                 continue
 
     # Get ResourceSpace image keywords
-    for metadata in parsed_xml_file['record']['resourcespace:field']:
-        for key, value in metadata.items():
+    for image_metadata in parsed_xml_file['record']['resourcespace:field']:
+        for key, value in image_metadata.items():
             if value == 'Keywords':
                 print("\n")
                 print("KEYWORDS")
                 try:
-                    print(metadata['#text'])
+                    print(image_metadata['#text'])
                 except:
                     print("Keywords field empty")
                     continue
 
     # Get ResourceSpace image notes
-    for metadata in parsed_xml_file['record']['resourcespace:field']:
-        for key, value in metadata.items():
+    for notes_metadata in parsed_xml_file['record']['resourcespace:field']:
+        for key, value in notes_metadata.items():
             if value == 'Notes':
                 print("\n")
                 print("NOTES")
                 try:
-                    print(metadata['#text'])
+                    print(notes_metadata['#text'])
                 except:
                     print("Notes field empty")
                     continue
 
 
     # Get ResourceSpace image credit
-    for metadata in parsed_xml_file['record']['resourcespace:field']:
-        for key, value in metadata.items():
+    for credit_metadata in parsed_xml_file['record']['resourcespace:field']:
+        for key, value in credit_metadata.items():
             if value == 'Credit':
                 print("\n")
                 print("CREDIT")
                 try:
-                    print(metadata['#text'])
+                    print(credit_metadata['#text'])
                 except:
                     print("Credit field empty")
                     continue
