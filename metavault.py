@@ -69,4 +69,17 @@ def read_metadump(metadump_file):
                     print("Notes field empty")
                     continue
 
+
+    # Get ResourceSpace image credit
+    for metadata in parsed_xml_file['record']['resourcespace:field']:
+        for key, value in metadata.items():
+            if value == 'Credit':
+                print("\n")
+                print("CREDIT")
+                try:
+                    print(metadata['#text'])
+                except:
+                    print("Credit field empty")
+                    continue
+
 read_metadump(metadump_file)
