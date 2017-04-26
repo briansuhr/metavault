@@ -182,6 +182,7 @@ def write_iptc_data():
             count += 1
             continue
 
+    print("\n")
     print("Done.")
 
 write_iptc_data()
