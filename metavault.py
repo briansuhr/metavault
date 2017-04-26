@@ -112,7 +112,6 @@ def write_iptc_data(image_file):
         key = 'Iptc.Application2.Keywords'
         value = metadata.get('Keywords')
         image_fields[key] = [value]
-        image_fields.write()
 
     # Write headline
     if metadata.get('Title'):
@@ -120,7 +119,6 @@ def write_iptc_data(image_file):
         key = 'Iptc.Application2.Headline'
         value = metadata.get('Title')
         image_fields[key] = [value]
-        image_fields.write()
 
     # Write credit
     if metadata.get('Credit'):
@@ -128,7 +126,8 @@ def write_iptc_data(image_file):
         key = 'Iptc.Application2.Byline'
         value = metadata.get('Byline')
         image_fields[key] = [value]
-        image_fields.write()
+
+    image_fields.write()
 
 write_iptc_data(image_file)
 get_iptc_credit(image_file)
