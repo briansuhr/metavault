@@ -2,15 +2,11 @@ import os
 import pyexiv2
 import xmltodict
 import glob
+import sys
 
-photo_directory = 'resourcespace'
+image_directory = 'resourcespace'
 image_file = '9944_8640aa4d8fb8168.jpg'
 metadump_file = 'metadump.xml'
-
-def print_all_files():
-    # Use glob.iglob instead of glob.glob to avoid storing all files simultaneously.
-    for photo in glob.iglob('resourcespace/**/*.jpg', recursive=True):
-        print(photo)
 
 def get_iptc_keywords(image_file):
     metadata = pyexiv2.ImageMetadata(image_file)
@@ -117,4 +113,15 @@ def write_iptc_data(image_file):
 
     image_fields.write()
 
-print_all_files()
+def get_all_image_files():
+    # Use glob.iglob instead of glob.glob to avoid storing all files simultaneously.
+    number_of_images = 0
+    image_files = []
+    for image in glob.iglob('resourcespace/**/*.jpg', recursive=True):
+        if 'col_' not in image and 'lpr_' not in image and 'pre_' not in image and 'scr_' not in image and 'thm_' not in image:
+            number_of_images += 1
+            print(str(number_of_images) + " images found.", end="\r")
+            images_files.append(image)
+            #write_iptc_data(image)
+
+get_all_image_files()
