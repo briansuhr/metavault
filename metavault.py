@@ -4,8 +4,6 @@ import xmltodict
 import glob
 from shutil import copyfile
 
-image_directory = 'resourcespace'
-image_file = '9944_8640aa4d8fb8168.jpg'
 
 def get_iptc_keywords(image_file):
     metadata = pyexiv2.ImageMetadata(image_file)
@@ -84,10 +82,11 @@ def read_metadump(metadump_file):
     return(metadata)
 
 def get_all_image_files():
+    image_directory = 'filestorebk'
     number_of_images = 0
     image_files = []
 
-    for image in glob.iglob('resourcespace/**/*.jpg', recursive=True):
+    for image in glob.iglob(image_directory + '/**/*.jpg', recursive=True):
         # Use glob.iglob instead of glob.glob to avoid storing all files simultaneously.
         if 'col_' not in image and 'lpr_' not in image and 'pre_' not in image and 'scr_' not in image and 'thm_' not in image:
             number_of_images += 1
@@ -194,7 +193,7 @@ def write_iptc_data():
 def copy_images_to_new_directory():
     images_to_move = get_all_image_files()
     image_destination_directory = "images_with_metadata"
-    
+
     count = 0
     for image in images_to_move:
         count += 1
@@ -205,4 +204,4 @@ def copy_images_to_new_directory():
 
     print("Done.")
 
-copy_images_to_new_directory()
+get_all_image_files()
