@@ -204,4 +204,4 @@ def copy_images_to_new_directory():
 
     print("Done.")
 
-get_all_image_files()
+write_iptc_data()
