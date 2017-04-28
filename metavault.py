@@ -96,16 +96,7 @@ def get_image_files(image_type):
         if image_type == "original" and is_thumbnail(image) == False:
             number_of_images += 1
 
-            # Split up directory and image basename
-            image_file_location = []
-            image_directory = os.path.dirname(image)
-            image_basename = os.path.basename(image)
-
-            image_file_location.append(image_directory)
-            image_file_location.append(image_basename)
-
-            image_files.append(image_file_location)
-            image_file_location = []
+            get_image_file_details(image)
 
             print(str(number_of_images) + " full size images found.", end="\r")
 

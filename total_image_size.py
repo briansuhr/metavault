@@ -7,13 +7,16 @@ def get_size_of_images(images):
 
     total_file_size = 0
 
+    print('\n')
+    print("Calculating file size...")
     for image in images:
         image_path = str(image[0]) + '/' + str(image[1])
         file_size = os.path.getsize(image_path)
         total_file_size += file_size
+        print(pretty_size(total_file_size), end="\r")
 
     print("\n")
-    print(pretty_size(total_file_size))
+    print("Total size: " + str(pretty_size(total_file_size)))
     return(total_file_size)
 
 def get_full_image_path(image_path):
