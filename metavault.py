@@ -93,42 +93,37 @@ def get_image_files(image_type):
 
     for image in glob.iglob(image_directory + '/**/*.jpg', recursive=True):
         # Use glob.iglob instead of glob.glob to avoid storing all files simultaneously.
-        if image_type == "original":
-            if is_thumbnail(image) == False:
-                number_of_images += 1
+        if image_type == "original" and is_thumbnail(image) == False:
+            number_of_images += 1
 
-                # Split up directory and image basename
-                image_file_location = []
-                image_directory = os.path.dirname(image)
-                image_basename = os.path.basename(image)
+            # Split up directory and image basename
+            image_file_location = []
+            image_directory = os.path.dirname(image)
+            image_basename = os.path.basename(image)
 
-                image_file_location.append(image_directory)
-                image_file_location.append(image_basename)
+            image_file_location.append(image_directory)
+            image_file_location.append(image_basename)
 
-                image_files.append(image_file_location)
-                image_file_location = []
+            image_files.append(image_file_location)
+            image_file_location = []
 
-                print(str(number_of_images) + " full size images found.", end="\r")
+            print(str(number_of_images) + " full size images found.", end="\r")
 
-        elif image_type == "thumbnail":
-            if is_thumbnail(image) == True:
-                number_of_images += 1
+        elif image_type == "thumbnail" and is_thumbnail(image) == True:
+            number_of_images += 1
 
-                # Split up directory and image basename
-                image_file_location = []
-                image_directory = os.path.dirname(image)
-                image_basename = os.path.basename(image)
+            # Split up directory and image basename
+            image_file_location = []
+            image_directory = os.path.dirname(image)
+            image_basename = os.path.basename(image)
 
-                image_file_location.append(image_directory)
-                image_file_location.append(image_basename)
+            image_file_location.append(image_directory)
+            image_file_location.append(image_basename)
 
-                image_files.append(image_file_location)
-                image_file_location = []
+            image_files.append(image_file_location)
+            image_file_location = []
 
-                print(str(number_of_images) + " thumbnail images found.", end="\r")
-
-        else:
-            break
+            print(str(number_of_images) + " thumbnail images found.", end="\r")
 
     return(image_files)
 
@@ -229,5 +224,3 @@ def copy_images_to_new_directory():
         copyfile(image_source, image_destination_filepath)
 
     print("Done.")
-
-get_image_files("thumbnail")
