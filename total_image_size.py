@@ -1,10 +1,8 @@
 import os
 from math import log
+import glob
 
-def get_size_of_all_images():
-    list_of_images = open('image_files.txt', 'r')
-    images = list_of_images.readlines()
-
+def get_size_of_images(images):
     images_found = 0
     total_size = 0
 
@@ -18,6 +16,7 @@ def get_size_of_all_images():
     list_of_images.close()
 
 def get_full_image_path(image_path):
+
     characters = "[]'"
     for character in characters:
         if character in image_path:
@@ -25,10 +24,22 @@ def get_full_image_path(image_path):
             image_path = image_path.replace(',', '/')
             image_path = image_path.replace(' ', '')
             image_path = image_path.strip()
+        print(image_path)
     return(image_path)
+
+def get_thumbnails_path(image_path):
+    thumbnails_path = []
+
+    thumbnail_prefixes = ['col_', 'lpr_', 'pre_', 'scr_', 'thm_']
+    for prefix in thumbnail_prefixes:
+        thumbnails_path.append()
+
+def is_thumbnail(image):
+    # Use glob.iglob instead of glob.glob to avoid storing all files simultaneously.
+    if 'col_' in image or 'lpr_' in image or 'pre_' in image or 'scr_' in image or 'thm_' in image:
+        return(True)
+
 
 def pretty_size(n,pow=0,b=1024,u='B',pre=['']+[p+'i'for p in'KMGTPEZY']):
     pow,n=min(int(log(max(n*b**pow,1),b)),len(pre)-1),n*b**pow
     return "%%.%if %%s%%s"%abs(pow%(-pow-1))%(n/b**float(pow),pre[pow],u)
-
-get_size_of_all_images()
