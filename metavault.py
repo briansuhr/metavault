@@ -35,7 +35,6 @@ def read_metadump(metadump_file):
     for title_metadata, value in parsed_xml_file['record']['dc:title'].items():
         if title_metadata == '#text':
             try:
-                '#text' in title_metadata
                 metadata["Title"] = value
             except:
                 pass
@@ -44,7 +43,6 @@ def read_metadump(metadump_file):
     for date_metadata, value in parsed_xml_file['record']['dc:date'].items():
         if date_metadata == '#text':
             try:
-                '#text' in date_metadata
                 metadata["Date"] = value
             except:
                 pass
@@ -54,7 +52,6 @@ def read_metadump(metadump_file):
         for key, value in keywords_metadata.items():
             if value == 'Keywords':
                 try:
-                    'Keywords' in keywords_metadata
                     metadata["Keywords"] = keywords_metadata["#text"]
                 except:
                     pass
@@ -64,7 +61,6 @@ def read_metadump(metadump_file):
         for key, value in notes_metadata.items():
             if value == 'Notes':
                 try:
-                    'Notes' in image_metadata
                     metadata["Notes"] = notes_metadata["#text"]
                 except:
                     pass
@@ -74,7 +70,6 @@ def read_metadump(metadump_file):
         for key, value in credit_metadata.items():
             if value == 'Credit':
                 try:
-                    'Credit' in credit_metadata
                     metadata["Credit"] = credit_metadata["#text"]
                 except:
                     pass
