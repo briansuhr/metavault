@@ -79,12 +79,12 @@ def read_metadump(metadump_file):
                 except:
                     pass
 
-    return(metadata)
+    return metadata
 
 def is_thumbnail(image):
     # Use glob.iglob instead of glob.glob to avoid storing all files simultaneously.
     if 'col_' in image or 'lpr_' in image or 'pre_' in image or 'scr_' in image or 'thm_' in image:
-        return(True)
+        return True
 
 def get_image_files(image_type):
     image_directory = 'filestorebk'
@@ -116,7 +116,7 @@ def get_image_files(image_type):
 
             print(str(number_of_images) + " thumbnail images found.", end="\r")
 
-    return(image_files)
+    return image_files
 
 def images_log(image_file_list):
     image_files = open('image_files.txt', 'w')
