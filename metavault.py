@@ -95,7 +95,7 @@ def get_image_files(image_type):
 
             print(str(number_of_images) + " full size images found.", end="\r")
 
-        elif image_type == "thumbnail" and is_thumbnail(image) == True:
+        else:
             number_of_images += 1
 
             # Split up directory and image basename

@@ -17,7 +17,7 @@ def get_size_of_images(images):
 
     print("\n")
     print("Total size: " + str(pretty_size(total_file_size)))
-    return(total_file_size)
+    return total_file_size
 
 def get_full_image_path(image_path):
 
@@ -29,7 +29,7 @@ def get_full_image_path(image_path):
             image_path = image_path.replace(' ', '')
             image_path = image_path.strip()
         print(image_path)
-    return(image_path)
+    return image_path
 
 def get_thumbnails_path(image_path):
     thumbnails_path = []
