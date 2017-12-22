@@ -16,14 +16,6 @@ def read_metadump(metadump_file):
             except:
                 pass
 
-    # Get ResourceSpace original filename
-    for original_filename in parsed_xml_file['record']['resourcespace:field']:
-        for key, value in original_filename.items():
-            if value == 'Original filename':
-                try:
-                    metadata["Original filename"] = original_filename["#text"]
-                except:
-                    pass
 
     # Get ResourceSpace image date
     for date_metadata, value in parsed_xml_file['record']['dc:date'].items():
