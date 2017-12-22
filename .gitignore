@@ -21,3 +21,4 @@ tags
 photos/
 resourcespace/
 .idea/
+__pycache__/
