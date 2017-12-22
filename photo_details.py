@@ -85,3 +85,9 @@ def get_xml(metadump_file):
                     pass
 
     return metadata
+
+
+def is_thumbnail(image):
+    # Use glob.iglob instead of glob.glob to avoid storing all files simultaneously.
+    if 'col_' in image or 'lpr_' in image or 'pre_' in image or 'scr_' in image or 'thm_' in image:
+        return True

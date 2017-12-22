@@ -4,12 +4,6 @@ import glob
 from shutil import copyfile
 
 
-def is_thumbnail(image):
-    # Use glob.iglob instead of glob.glob to avoid storing all files simultaneously.
-    if 'col_' in image or 'lpr_' in image or 'pre_' in image or 'scr_' in image or 'thm_' in image:
-        return True
-
-
 def get_image_files(image_type):
     image_directory = 'filestorebk'
     number_of_images = 0
