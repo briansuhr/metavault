@@ -1,6 +1,7 @@
 import os
 import xmltodict
 
+
 def read_metadump(metadump_file):
     xml_file = open(metadump_file, "r").read()
     parsed_xml_file = xmltodict.parse(xml_file)
@@ -14,6 +15,15 @@ def read_metadump(metadump_file):
                 metadata["Title"] = value
             except:
                 pass
+
+    # Get ResourceSpace original filename
+    for original_filename in parsed_xml_file['record']['resourcespace:field']:
+        for key, value in original_filename.items():
+            if value == 'Original filename':
+                try:
+                    metadata["Original filename"] = original_filename["#text"]
+                except:
+                    pass
 
     # Get ResourceSpace image date
     for date_metadata, value in parsed_xml_file['record']['dc:date'].items():
@@ -51,5 +61,6 @@ def read_metadump(metadump_file):
                     pass
 
     return metadata
+
 
 print(read_metadump("photos/7_17dae6df35e1463/metadump.xml"))
