@@ -63,4 +63,17 @@ def read_metadump(metadump_file):
     return metadata
 
 
-print(read_metadump("photos/7_17dae6df35e1463/metadump.xml"))
+def rename_photos():
+    photo_directory = "photos/7_17dae6df35e1463/"
+    for photo in os.listdir(photo_directory):
+        if photo.startswith("._"):
+            continue
+        elif photo.endswith(".jpg") or photo.endswith('.jpeg') or photo.endswith(".tif"):
+            os.rename(photo_directory + photo, photo_directory + read_metadump(photo_directory + "metadump.xml")['Original filename'])
+        else:
+            continue
+
+
+# print(read_metadump("photos/7_17dae6df35e1463/metadump.xml")['Original filename'])
+
+rename_photos()
