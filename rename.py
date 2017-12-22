@@ -64,16 +64,17 @@ def read_metadump(metadump_file):
 
 
 def rename_photos():
+    """Renames photos in directory with XML metadump information"""
+
     photo_directory = "photos/7_17dae6df35e1463/"
     for photo in os.listdir(photo_directory):
         if photo.startswith("._"):
+            continue
+        elif "col_" in photo or "pre_" in photo or "scr_" in photo or "thm_" in photo:
             continue
         elif photo.endswith(".jpg") or photo.endswith('.jpeg') or photo.endswith(".tif"):
             os.rename(photo_directory + photo, photo_directory + read_metadump(photo_directory + "metadump.xml")['Original filename'])
         else:
             continue
-
-
-# print(read_metadump("photos/7_17dae6df35e1463/metadump.xml")['Original filename'])
 
 rename_photos()
