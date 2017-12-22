@@ -19,3 +19,4 @@ tags
 *.txt
 
 resourcespace/
+.idea/
