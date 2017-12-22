@@ -1,5 +1,5 @@
 import os
-from metadata import read_metadump
+from photo_details import read_metadump
 
 def rename_photos():
     """Renames photos in directory with XML metadump information"""
