@@ -1,6 +1,5 @@
 import os
 import pyexiv2
-import xmltodict
 import glob
 from shutil import copyfile
 
