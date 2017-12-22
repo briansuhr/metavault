@@ -1,5 +1,5 @@
 import os
-from photo_details import read_metadump
+from photo_details import get_xml
 
 def rename_photos():
     """Renames photos in directory with XML metadump information"""
@@ -11,7 +11,7 @@ def rename_photos():
         elif "col_" in photo or "pre_" in photo or "scr_" in photo or "thm_" in photo:
             continue
         elif photo.endswith(".jpg") or photo.endswith('.jpeg') or photo.endswith(".tif"):
-            os.rename(photo_directory + photo, photo_directory + read_metadump(photo_directory + "metadump.xml")['Original filename'])
+            os.rename(photo_directory + photo, photo_directory + get_xml(photo_directory + "metadump.xml")['Original filename'])
         else:
             continue
 

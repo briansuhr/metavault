@@ -25,7 +25,7 @@ def get_iptc_credit(image_file):
             print(tag.value)
 
 
-def read_metadump(metadump_file):
+def get_xml(metadump_file):
     """Reads metadata from XML file in photo directory"""
     xml_file = open(metadump_file, "r").read()
     parsed_xml_file = xmltodict.parse(xml_file)
