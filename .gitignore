@@ -18,5 +18,6 @@ tags
 *.log
 *.txt
 
+photos/
 resourcespace/
 .idea/
