@@ -2,6 +2,15 @@ import os
 import glob
 from image_details import is_thumbnail, get_xml
 
+
+def count_total_images(images):
+    image_count = 0
+
+    for image in images:
+        image_count += 1
+
+    return image_count
+
 def find_all_images(image_directory):
     """Recursively searches a photo directory for all non-thumbnail files"""
 
@@ -36,3 +45,5 @@ def create_log(image_directory):
 
 if __name__ == "__main__":
     create_log("photos/")
+
+

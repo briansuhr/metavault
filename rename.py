@@ -1,25 +1,29 @@
 import os
 from image_details import get_xml, is_thumbnail
+from find_images import count_total_images
 
 
-def rename_all_images(image_directory):
-    """Recursively rename all non-thumbnail images in an image directory"""
+def rename_images(image_log):
+    """Rename all images in log file with original filename from metadump.xml"""
 
-    for root_directory, sub_directories, images in os.walk(image_directory):
-        for image in images:
-            if image.startswith("._"):
-                continue
-            elif is_thumbnail(image):
-                continue
-            elif image.endswith(".jpg") or image.endswith('.jpeg') or image.endswith(".tif"):
-                image_path = os.path.join(root_directory, image)
-                metadump_file_location = os.path.join(root_directory, "metadump.xml")
-                original_filename = get_xml(metadump_file_location)['Original filename']
-                os.rename(image_path, os.path.join(root_directory, original_filename))
-            else:
-                continue
+    with open(image_log) as image_log:
+        images = image_log.readlines()
+        images = [white_space.strip() for white_space in images]
+        total_images = count_total_images(images)
+
+    count = 1
+    for image in images:
+        print("Renaming image " + str(count) + " of " + str(total_images) + ".", end="\r")
+
+        image_directory = os.path.split(image)[0]
+        metadump_path = os.path.join(image_directory, "metadump.xml")
+        new_image_name = get_xml(metadump_path)['Original filename']
+        os.rename(image, os.path.join(image_directory, new_image_name))
+
+        count += 1
+
+    print("\nDone.")
+
 
 if __name__ == '__main__':
-
-    rename_all_images("photos/")
-
+    puddy("log/image_files.txt")

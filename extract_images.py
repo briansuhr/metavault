@@ -1,14 +1,8 @@
 from shutil import copyfile
 import os
 
+from find_images import count_total_images
 
-def count_total_images(images):
-    image_count = 0
-
-    for image in images:
-        image_count += 1
-
-    return image_count
 
 def extract_images(image_log):
     """Uses the image log to move all full-size images to a new directory"""
