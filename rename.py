@@ -2,10 +2,9 @@ import os
 from photo_details import get_xml, is_thumbnail
 
 
-def rename_all_images():
+def rename_all_images(image_directory):
     """Recursively rename all non-thumbnail images in an image directory"""
 
-    image_directory = "photos/"
     for root_directory, sub_directories, images in os.walk(image_directory):
         for image in images:
             if image.startswith("._"):
@@ -22,5 +21,5 @@ def rename_all_images():
 
 if __name__ == '__main__':
 
-    rename_all_images()
+    rename_all_images("photos/")
 
