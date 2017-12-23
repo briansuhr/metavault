@@ -1,6 +1,6 @@
 import os
 import glob
-from photo_details import is_thumbnail, get_xml
+from image_details import is_thumbnail, get_xml
 
 
 def find_image_files(image_type):

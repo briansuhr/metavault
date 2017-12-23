@@ -1,5 +1,5 @@
 import os
-from photo_details import get_xml, is_thumbnail
+from image_details import get_xml, is_thumbnail
 
 
 def rename_all_images(image_directory):
