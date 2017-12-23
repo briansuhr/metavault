@@ -26,4 +26,4 @@ def rename_images(image_log):
 
 
 if __name__ == '__main__':
-    puddy("log/image_files.txt")
+    rename_images("log/image_files.txt")

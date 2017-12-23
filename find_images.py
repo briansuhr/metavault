@@ -1,3 +1,5 @@
+"""Finds all full-size images in a directory and creates a log of their paths."""
+
 import os
 import glob
 from image_details import is_thumbnail, get_xml
