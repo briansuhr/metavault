@@ -4,8 +4,8 @@ Modify XML data from a ResourceSpace filestore
 ## Requirements
 
 1. Setup Python
-- Install Python 3.x
-- Install pip3
+- sudo apt-get update
+- sudo apt-get install python3-pip
 
 2. Install py3exiv2 dependencies
 - libboost-all-dev
