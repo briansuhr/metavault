@@ -357,4 +357,4 @@ venv.bak/
 .mypy_cache/
 
 # Configuration
-*.config
+metavault.config
