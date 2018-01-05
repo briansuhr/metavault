@@ -356,5 +356,5 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-
-photos/
+# Configuration
+.config
