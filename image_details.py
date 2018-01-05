@@ -25,6 +25,20 @@ def get_iptc_credit(image_file):
             print(tag.value)
 
 
+def get_iptc_date(image_file):
+    """Reads IPTC credit from image file"""
+    metadata = pyexiv2.ImageMetadata(image_file)
+    metadata.read()
+
+    for key in metadata.iptc_keys:
+        tag = metadata[key]
+        print(str(key) + str(tag.value))
+        if 'Iptc.Application2.DateCreated' in key:
+            break
+
+    return tag.value
+
+
 def get_xml(metadump_file):
     """Reads metadata from XML file in photo directory"""
     xml_file = open(metadump_file, "r").read()
