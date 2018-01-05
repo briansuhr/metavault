@@ -3,6 +3,12 @@
 import os
 import glob
 from image_details import is_thumbnail, get_xml
+from configparser import ConfigParser
+
+parser = ConfigParser()
+parser.read('metavault.config')
+
+image_directory = parser.get('images', 'image_directory')
 
 
 def count_total_images(images):
@@ -13,13 +19,13 @@ def count_total_images(images):
 
     return image_count
 
-def find_all_images(image_directory):
+def find_all_images(directory):
     """Recursively searches a photo directory for all non-thumbnail files"""
 
     images_found = 0
     image_files = []
 
-    for root_directory, sub_directories, images in os.walk(image_directory):
+    for root_directory, sub_directories, images in os.walk(directory):
         for image in images:
             if image.startswith("._"):
                 continue
@@ -46,6 +52,6 @@ def create_log(image_directory):
 
 
 if __name__ == "__main__":
-    create_log("photos/")
+    create_log(image_directory)
 
 
