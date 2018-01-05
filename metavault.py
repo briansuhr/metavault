@@ -80,18 +80,18 @@ def write_iptc_data():
     print("\n")
     print("Done.")
 
-        def copy_images_to_new_directory():
-            images_to_move = get_all_image_files()
-            image_destination_directory = "images_with_metadata"
+    def copy_images_to_new_directory():
+        images_to_move = get_all_image_files()
+        image_destination_directory = "images_with_metadata"
 
-            count = 0
-            for image in images_to_move:
-                count += 1
-                image_source = str(image[0]) + "/" + str(image[1])
-                image_destination_filepath = image_destination_directory + "/" + str(image[1])
-                print(
-                "(" + str(int(count / len(images_to_move) * 100)) + "%) Copying image " + str(count) + " of " + str(
-                    len(images_to_move)) + " to /" + image_destination_directory, end="\r")
-                copyfile(image_source, image_destination_filepath)
+        count = 0
+        for image in images_to_move:
+            count += 1
+            image_source = str(image[0]) + "/" + str(image[1])
+            image_destination_filepath = image_destination_directory + "/" + str(image[1])
+            print(
+            "(" + str(int(count / len(images_to_move) * 100)) + "%) Copying image " + str(count) + " of " + str(
+                len(images_to_move)) + " to /" + image_destination_directory, end="\r")
+            copyfile(image_source, image_destination_filepath)
 
-            print("Done.")
+        print("Done.")

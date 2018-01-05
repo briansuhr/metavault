@@ -9,6 +9,7 @@ parser = ConfigParser()
 parser.read('metavault.config')
 
 image_directory = parser.get('images', 'image_directory')
+log_directory = parser.get('images', 'log_directory')
 
 
 def count_total_images(images):
@@ -46,7 +47,7 @@ def find_all_images(directory):
 
 def create_log(image_directory):
     """Creates log containing the paths of all image files"""
-    image_files = open('log/image_files.txt', 'w')
+    image_files = open(log_directory, 'w')
     for path in find_all_images(image_directory):
         image_files.write("%s\n" % path)
 

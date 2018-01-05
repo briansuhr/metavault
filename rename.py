@@ -1,6 +1,6 @@
 import os
 from image_details import get_xml, is_thumbnail
-from find_images import count_total_images
+import find_images
 
 
 def rename_images(image_log):
@@ -9,7 +9,7 @@ def rename_images(image_log):
     with open(image_log) as image_log:
         images = image_log.readlines()
         images = [white_space.strip() for white_space in images]
-        total_images = count_total_images(images)
+        total_images = find_images.count_total_images(images)
 
     count = 1
     for image in images:
@@ -26,4 +26,4 @@ def rename_images(image_log):
 
 
 if __name__ == '__main__':
-    rename_images("log/image_files.txt")
+    rename_images(find_images.log_directory)
