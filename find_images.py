@@ -38,7 +38,7 @@ def find_all_images(directory):
             else:
                 continue
 
-        print(str(images_found) + " images found.", end="\r")
+        print(str(images_found) + " images found in directory: " + image_directory, end="\r")
 
     print("\nDone.")
     return image_files
