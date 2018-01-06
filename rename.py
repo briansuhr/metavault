@@ -39,16 +39,21 @@ def rename_images(images):
 def strip_date(date):
     """Strips all non-date characters from IPTC date. Returns a list of string values as YYYY, MM, DD"""
 
-    date_as_string = str(date)
+    if date is False:
+        return False
 
-    # Strip out all non-date characters
-    date_as_string = date_as_string.replace('[datetime.date(', '')
-    date_as_string = date_as_string.replace(')]', '')
+    else:
 
-    # Split year, month, day by comma
-    pure_date = [x.strip() for x in date_as_string.split(',')]
+        date_as_string = str(date)
 
-    return pure_date
+        # Strip out all non-date characters
+        date_as_string = date_as_string.replace('[datetime.date(', '')
+        date_as_string = date_as_string.replace(')]', '')
+
+        # Split year, month, day by comma
+        pure_date = [x.strip() for x in date_as_string.split(',')]
+
+        return pure_date
 
 
 def create_directory_from_date(images):
@@ -60,23 +65,32 @@ def create_directory_from_date(images):
     for image in images:
         print("Renaming image " + str(count) + " of " + str(total_images) + ".", end="\r")
 
-        # Separate year, month, and day
+        # Get date from image file
         date = strip_date(get_iptc_date(image))
-        year = date[0]
-        month = date[1]
-        day = date[2]
 
-        # Add 0 to months and days between 1 and 9
-        if len(month) == 1:
-            month = str(0) + month
+        # If image does not have an IPTC date, create a 'No date' directory
+        if date is False:
+            if not os.path.exists(date_directory):
+                os.makedirs(os.path.join(image_directory, 'No date'))
 
-        if len(day) == 1:
-            day = str(0) + day
+        # If image has an IPTC date, create a YYYY-MM-DD directory
+        else:
 
-        date_directory = year + '-' + month + '-' + day
+            year = date[0]
+            month = date[1]
+            day = date[2]
 
-        if not os.path.exists(date_directory):
-            os.makedirs(os.path.join(image_directory, date_directory))
+            # Add 0 to months and days between 1 and 9
+            if len(month) == 1:
+                month = str(0) + month
+
+            if len(day) == 1:
+                day = str(0) + day
+
+            date_directory = year + '-' + month + '-' + day
+
+            if not os.path.exists(date_directory):
+                os.makedirs(os.path.join(image_directory, date_directory))
 
         count += 1
 

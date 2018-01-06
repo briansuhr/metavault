@@ -30,12 +30,18 @@ def get_iptc_date(image_file):
     metadata = pyexiv2.ImageMetadata(image_file)
     metadata.read()
 
+    datetime_exists = False
+
     for key in metadata.iptc_keys:
         tag = metadata[key]
         if 'Iptc.Application2.DateCreated' in key:
+            datetime_exists = True
             break
 
-    return tag.value
+    if datetime_exists:
+        return tag.value
+    else:
+        return False
 
 
 def get_xml(metadump_file):
