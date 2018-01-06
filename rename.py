@@ -2,14 +2,23 @@ import os
 from image_details import get_xml, is_thumbnail, get_iptc_date
 import find_images
 
+image_log_file = find_images.log_directory
 
-def rename_images(image_log):
-    """Rename all images in log file with original filename from metadump.xml"""
+
+def open_image_log(image_log):
+    """Opens image log text file for reading"""
 
     with open(image_log) as image_log:
         images = image_log.readlines()
         images = [white_space.strip() for white_space in images]
-        total_images = find_images.count_total_images(images)
+
+    return images
+
+
+def rename_images(images):
+    """Rename all images in log file with original filename from metadump.xml"""
+
+    total_images = find_images.count_total_images(images)
 
     count = 1
     for image in images:
@@ -37,8 +46,6 @@ def strip_date(date):
     # Split year, month, day by comma
     pure_date = [x.strip() for x in date_as_string.split(',')]
 
-    print(pure_date)
-
     return pure_date
 
 
@@ -60,5 +67,5 @@ def rename_images_with_date(image_log):
 
 
 if __name__ == '__main__':
-    # rename_images(find_images.log_directory)
-    print(rename_images_with_date(find_images.log_directory))
+    rename_images(open_image_log(image_log_file))
+
