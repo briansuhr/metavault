@@ -1,6 +1,6 @@
 import xmltodict
 import pyexiv2
-
+import datetime
 
 def get_iptc_keywords(image_file):
     """Reads IPTC keywords from image file"""
@@ -32,7 +32,6 @@ def get_iptc_date(image_file):
 
     for key in metadata.iptc_keys:
         tag = metadata[key]
-        print(str(key) + str(tag.value))
         if 'Iptc.Application2.DateCreated' in key:
             break
 
