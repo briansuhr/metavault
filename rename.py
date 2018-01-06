@@ -66,6 +66,13 @@ def create_directory_from_date(images):
         month = date[1]
         day = date[2]
 
+        # Add 0 to months and days between 1 and 9
+        if len(month) == 1:
+            month = str(0) + month
+
+        if len(day) == 1:
+            day = str(0) + day
+
         date_directory = year + '-' + month + '-' + day
 
         if not os.path.exists(date_directory):
