@@ -70,8 +70,11 @@ def create_directory_from_date(images):
 
         # If image does not have an IPTC date, create a 'No date' directory
         if date is False:
-            if not os.path.exists(date_directory):
-                os.makedirs(os.path.join(image_directory, 'No date'))
+            try:
+                if not os.path.exists(date_directory):
+                    os.makedirs(os.path.join(image_directory, 'No date'))
+            except:
+                continue
 
         # If image has an IPTC date, create a YYYY-MM-DD directory
         else:
@@ -89,8 +92,11 @@ def create_directory_from_date(images):
 
             date_directory = year + '-' + month + '-' + day
 
-            if not os.path.exists(date_directory):
-                os.makedirs(os.path.join(image_directory, date_directory))
+            try:
+                if not os.path.exists(date_directory):
+                    os.makedirs(os.path.join(image_directory, date_directory))
+            except:
+                continue
 
         count += 1
 
