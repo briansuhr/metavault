@@ -56,14 +56,14 @@ def strip_date(date):
         return pure_date
 
 
-def create_directory_from_date(images):
+def organize_images_by_date(images):
     """Creates a directory from YYYY, MM, DD values"""
 
     total_images = find_images.count_total_images(images)
     count = 1
 
     for image in images:
-        print("Renaming image " + str(count) + " of " + str(total_images) + ".", end="\r")
+        print("Creating directory " + str(count) + " of " + str(total_images) + ".", end="\r")
 
         # Get date from image file
         date = strip_date(get_iptc_date(image))
@@ -74,7 +74,7 @@ def create_directory_from_date(images):
                 if not os.path.exists(date_directory):
                     os.makedirs(os.path.join(image_directory, 'No date'))
             except:
-                continue
+                pass
 
         # If image has an IPTC date, create a YYYY-MM-DD directory
         else:
@@ -96,11 +96,13 @@ def create_directory_from_date(images):
                 if not os.path.exists(date_directory):
                     os.makedirs(os.path.join(image_directory, date_directory))
             except:
-                continue
+                pass
+
+        print(os.path.basename(image))
 
         count += 1
 
 
 if __name__ == '__main__':
-    create_directory_from_date(open_image_log(image_log_file))
+    organize_images_by_date(open_image_log(image_log_file))
 
