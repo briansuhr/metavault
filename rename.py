@@ -73,8 +73,12 @@ def organize_images_by_date(images):
             try:
                 if not os.path.exists(date_directory):
                     os.makedirs(os.path.join(image_directory, 'No date'))
+
             except:
                 pass
+
+            new_directory = os.path.join(image_directory, 'No date')
+            os.rename(image, os.path.join(new_directory, os.path.basename(image)))
 
         # If image has an IPTC date, create a YYYY-MM-DD directory
         else:
@@ -98,7 +102,8 @@ def organize_images_by_date(images):
             except:
                 pass
 
-        print(os.path.basename(image))
+            new_directory = os.path.join(image_directory, date_directory)
+            os.rename(image, os.path.join(new_directory, os.path.basename(image)))
 
         count += 1
 
