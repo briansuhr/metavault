@@ -109,5 +109,6 @@ def organize_images_by_date(images):
 
 
 if __name__ == '__main__':
-    organize_images_by_date(open_image_log(image_log_file))
+    image_files = open_image_log(image_log_file)
+    organize_images_by_date(image_files)
 
