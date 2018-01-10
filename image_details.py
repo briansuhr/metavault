@@ -42,7 +42,12 @@ def get_iptc_date(image_file):
         pass
 
     if datetime_exists:
-        return tag.value
+        # Catch invalid IPTC types (e.g. 2010-12-00)
+        try:
+            return tag.value
+        except Exception as e:
+            print(e)
+            pass
     else:
         return False
 
