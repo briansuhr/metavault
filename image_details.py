@@ -32,11 +32,14 @@ def get_iptc_date(image_file):
 
     datetime_exists = False
 
-    for key in metadata.iptc_keys:
-        tag = metadata[key]
-        if 'Iptc.Application2.DateCreated' in key:
-            datetime_exists = True
-            break
+    try:
+        for key in metadata.iptc_keys:
+            tag = metadata[key]
+            if 'Iptc.Application2.DateCreated' in key:
+                datetime_exists = True
+                break
+    except:
+        pass
 
     if datetime_exists:
         return tag.value
