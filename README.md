@@ -2,21 +2,17 @@
 Modify XML data from a ResourceSpace filestore
 
 ## Requirements
+- Vagrant
+- Python 3
+- py3exiv2
+- xmltodict
 
-1. Setup Python
-- sudo apt-get update
-- sudo apt-get install python3-pip
-- pip3 install --upgrade pip
+## Automatic setup
+```bash
+source vagrant_setup.sh
+```
 
+## Troubleshooting
 
-2. Install py3exiv2 dependencies
-- sudo apt-get install libboost-all-dev
-- sudo apt-get install exiv2
-- sudo apt-get install libexiv2-dev
-- sudo apt-get install g++
-
-3. Install python3-exiv2
-- sudo pip3 install py3exiv2
-
-4. Install xmltodict
-- sudo pip3 install xmltodict
+### py3exiv2 won't install
+- Check that Vagrant has at least 2 GB of RAM if receiving this error: ```error: command 'x86_64-linux-gnu-gcc' failed with exit status 4```
