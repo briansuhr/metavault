@@ -1,0 +1,7 @@
+[images]
+# Example
+# image_directory = images
+# log_directory = log/log.txt
+
+image_directory = insert_image_directory_here
+log_directory = insert_path_to_log_file.txt
