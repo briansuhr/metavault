@@ -15,22 +15,22 @@ def write_iptc_data():
 
     print("Writing metadata to images...")
 
-    with open(image_log) as image_files: 
-        image_file = image_files.readlines()
+    with open(image_log) as image_log_file: 
+        images = image_log_file.readlines()
 
-        for image in image_file:
+        for image in images:
             print("This image " + image)
 
             # Look for metadump file
-            metadump_file = (str(os.path.dirname(image_file[0])) + '/metadump.xml')
+            metadump_file = (str(os.path.dirname(image)) + '/metadump.xml')
             print("metadump file " + metadump_file)
-            image_filepath = str(image_file[0]) + "/" + str(image_file[1])
+            image_filepath = str(image[0]) + "/" + str(image[1])
             print("image filepath " + image_filepath)
 
             try:
                 os.path.isfile(metadump_file)
             except:
-                print("No metadump file found for" + str(image_file[1]) + ".")
+                print("No metadump file found for" + str(image[1]) + ".")
                 count += 1
                 continue
 
